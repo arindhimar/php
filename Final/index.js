@@ -62,22 +62,18 @@ function validatemobile() {
 
 
 
-function validateall()
-{
-    if(validatename()==true&&validateemail()==true&&validatepassword()==true&&validatemobile()==true)
-    {
+function validateall() {
+    if (validatename() == true && validateemail() == true && validatepassword() == true && validatemobile() == true) {
         insertdata();
     }
-    else
-    {
+    else {
         alert("Invalid Data");
     }
 }
 
 
-function insertdata()
-{
-    let temp={ flag:"1", name :$("#name").val(),email:$("#email").val(),password:$("#password").val(),mobile:$("#mobile").val()}
+function insertdata() {
+    let temp = { flag: "1", name: $("#name").val(), email: $("#email").val(), password: $("#password").val(), mobile: $("#mobile").val() }
     console.log(temp);
     $.ajax({
         type: "POST",
@@ -91,43 +87,107 @@ function insertdata()
 }
 
 
-function loaddata()
-{
+function loaddata() {
     //$("#tb1").html("");
     //alert("asdisa")
-    let temp={ flag:"2"};
+    let temp = { flag: "2" };
     $.ajax({
         type: "POST",
         url: "ajax.php",
-        data:temp,
+        data: temp,
         success: function (response) {
             $("#tb1").html(response);
         }
     });
 }
 
-function searchdata()
+function searchdata() {
+    let temp = { flag: "3", name: $("#srchtxt").val() };
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        data: temp,
+        success: function (response) {
+            $("#tb1").html(response);
+        }
+    });
+}
+
+
+function updt(x) {
+    localStorage.setItem('upid',x);
+    //console.log("update function called");
+    window.location.href = "update.php";
+    //console.log(localStorage.getItem('upid'));
+    //document.getElementById('upid').value=temp;
+    
+}
+
+function retid()
 {
-    let temp={ flag:"3",name:$("#srchtxt").val()};
-    $.ajax({
-        type: "POST",
-        url: "ajax.php",
-        data:temp,
-        success: function (response) {
-            $("#tb1").html(response);
-        }
-    });
+    document.getElementById('upid').value=localStorage.getItem('upid');
 }
 
 
-$("#btnrfrsh").on("click",loaddata);
+function del(x) {
+    //console.log("update function called");
+   // x=x.toString();
+
+    
+    let temp={flag:"4",id:x}
+
+    $.ajax({
+        
+        type: "POST",
+        url: "ajax.php",
+        data: temp,
+        success: function (response) {
+            //alert(response);
+            loaddata();
+        }
+    });
+    
+}
+
+function updtser()
+{
+
+
+    if (validatename() == true && validateemail() == true && validatepassword() == true && validatemobile() == true) {
+        let temp = {flag: "5",id:$("#upid").val(), name: $("#name").val(), email: $("#email").val(), password: $("#password").val(), mobile: $("#mobile").val() }
+        console.log(temp);
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: temp,
+            success: function (response) {
+                //$("#d1").html("Data Inserted")
+                alert(response);
+                window.location.href="display.php";
+            }
+        });
+    }
+    else {
+        alert("Invalid Data");
+    }
+
+}
+
+
+function cancelbtn()
+{
+    window.location.href="display.php"
+}
 
 
 
+$("#btnrfrsh").on("click", loaddata);
 
+$("#insertbtn").on("click", validateall);
 
-$("#insertbtn").on("click",validateall);
+$("#updtbtn").on("click",updtser);
 
+$("#canclbtn").on("click",cancelbtn);
 
 
 

@@ -81,7 +81,7 @@ function insertdata() {
         data: temp,
         success: function (response) {
             //$("#d1").html("Data Inserted")
-            window.location.reload();
+            window.location.href = "display.php";
         }
     });
 }
@@ -115,29 +115,51 @@ function searchdata() {
 
 
 function updt(x) {
-    localStorage.setItem('upid',x);
+    //localStorage.setItem('upid',x);
     //console.log("update function called");
-    window.location.href = "update.php";
+    //window.location.href = "update.php";
     //console.log(localStorage.getItem('upid'));
     //document.getElementById('upid').value=temp;
+
+    var row = document.getElementById(x);
+
+
+    var cells = row.getElementsByTagName("td");
+    var tid = cells[0].textContent;
+    var tname = cells[1].textContent;
+    var temail = cells[2].textContent;
+    var tpassword = cells[3].textContent;
+    var tmobile = cells[4].textContent;
     
+
+    let temp = { flag: "5", id: tid, name : tname , email:temail , password:tpassword , mobile:tmobile}
+
+    $.ajax({
+
+        type: "POST",
+        url: "ajax.php",
+        data: temp,
+        success: function (response) {
+            //alert(response);
+            window.location.href = "update.php";
+        }
+    });
+    
+
+
 }
 
-function retid()
-{
-    document.getElementById('upid').value=localStorage.getItem('upid');
-}
 
 
 function del(x) {
     //console.log("update function called");
-   // x=x.toString();
+    // x=x.toString();
 
-    
-    let temp={flag:"4",id:x}
+
+    let temp = { flag: "4", id: x }
 
     $.ajax({
-        
+
         type: "POST",
         url: "ajax.php",
         data: temp,
@@ -146,15 +168,13 @@ function del(x) {
             loaddata();
         }
     });
-    
+
 }
 
-function updtser()
-{
-
+function updtser() {
 
     if (validatename() == true && validateemail() == true && validatepassword() == true && validatemobile() == true) {
-        let temp = {flag: "5",id:$("#upid").val(), name: $("#name").val(), email: $("#email").val(), password: $("#password").val(), mobile: $("#mobile").val() }
+        let temp = { flag: "5", id: $("#upid").val(), name: $("#name").val(), email: $("#email").val(), password: $("#password").val(), mobile: $("#mobile").val() }
         console.log(temp);
         $.ajax({
             type: "POST",
@@ -162,8 +182,8 @@ function updtser()
             data: temp,
             success: function (response) {
                 //$("#d1").html("Data Inserted")
-                alert(response);
-                window.location.href="display.php";
+                //alert(response);
+                window.location.href = "display.php";
             }
         });
     }
@@ -174,9 +194,8 @@ function updtser()
 }
 
 
-function cancelbtn()
-{
-    window.location.href="display.php"
+function cancelbtn() {
+    window.location.href = "display.php"
 }
 
 
@@ -185,9 +204,9 @@ $("#btnrfrsh").on("click", loaddata);
 
 $("#insertbtn").on("click", validateall);
 
-$("#updtbtn").on("click",updtser);
+$("#updtbtn").on("click", updtser);
 
-$("#canclbtn").on("click",cancelbtn);
+$("#canclbtn").on("click", cancelbtn);
 
 
 

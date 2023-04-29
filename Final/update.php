@@ -1,3 +1,8 @@
+<?php
+include'connection.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,36 +16,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
+
+
+    <script>
+        function retid()
+        {
+            <?php
+
+            $tid=$_GET['id'];
+                
+            $sql="select * from crud1 where id=$tid";
+
+            $res=mysqli_query($con,$sql);
+
+            $data=mysqli_fetch_array($res);
+
+            
+                
+            ?>
+        }
+    </script>
 </head>
 
-<body onload="retid()">
+<body >
 
 <div class="m-5">
+
         <label for="id" class="form-label">Id</label>
-        <input type="text" class="form-control" id="upid" readonly >
+        <input type="text" class="form-control" value=<?=$data['id'];?> id="upid" readonly >
 
     </div>
 
     <div class="m-5">
         <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name Here">
+        <input type="text" name="name" class="form-control" value=<?=$data['name'];?> id="name" placeholder="Enter Name Here">
     </div>
 
 
     <div class="m-5">
         <label for="name" class="form-label">Email </label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email Here">
+        <input type="email" name="email" class="form-control" value=<?=$data['email'];?> id="email" placeholder="Enter Email Here">
     </div>
 
 
     <div class="m-5">
         <label for="password" class="form-label"></label>Password </label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="Enter password Here">
+        <input type="password" name="password" class="form-control" value=<?=$data['password'];?> id="password" placeholder="Enter password Here">
     </div>
 
     <div class="m-5">
         <label for="mobile" class="form-label">Mobile </label>
-        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter Name Here">
+        <input type="text" name="mobile" class="form-control" id="mobile" value=<?=$data['mobile'];?> placeholder="Enter Name Here">
     </div>
 
     <div class="d-grid gap-2 col-6 mx-auto">

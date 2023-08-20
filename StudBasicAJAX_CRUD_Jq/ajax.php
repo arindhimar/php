@@ -27,7 +27,7 @@ if($flag==1){//insert data
     
 }
 else if($flag==2){//disp all data
-    $query = "select * from studentTb";
+    $query = "select * from studenttb";
 
     $res = mysqli_query($con, $query);
 

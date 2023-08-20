@@ -12,8 +12,16 @@ function dispData(){
         data: temp,
         // dataType: "dataType",
         success: function (response) {
+            console.log("called!!");
             let data=JSON.parse(response);
-            $("#dispUserDiv").html(data.data);
+            if(data.result==1)
+            {
+                $("#dispUserDiv").html(data.data);
+            }
+            else{
+                $("#dispUserDiv").html("");
+            }
+            
         }
     });
 }
@@ -27,9 +35,11 @@ function deleteData(x){
         data: temp,
         // dataType: "dataType",
         success: function (response) {
+            console.log(response)
             let data=JSON.parse(response);
+            dispData();
             if(data.result==1){
-                dispData();
+                
             }
         }
     });

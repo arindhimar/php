@@ -11,6 +11,10 @@ if($flag==1){//insert data
 
 
     $query = 'INSERT INTO `studenttb`(`sname`, `semail`, `spass`, `sdob`) VALUES ("' . $sname . '","'. $semail. '","' . $spass . '","' . $sdob . '")';
+    // $query='INSERT INTO `studenttb` (`sid`, `sname`, `semail`, `spass`, `sdob`) VALUES ("$sid","$sname","$email","$spass","$sdob")';
+
+    // echo $query;
+
 
     if(mysqli_query($con,$query)){
         $tempResponse=array('result'=>1);

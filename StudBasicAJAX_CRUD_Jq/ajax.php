@@ -46,7 +46,7 @@ else if($flag==2){//disp all data
         echo json_encode($tempResponse);
     }
     else{
-        $tempResponse=array('result'=>0);
+        $tempResponse=array('result'=>0,'data'=>'');
         echo json_encode($tempResponse);
     }
 }
